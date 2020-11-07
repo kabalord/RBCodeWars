@@ -6,51 +6,59 @@ Created on Sun Nov  1 13:32:59 2020
 @author: walterroaserrano
 """
 import numpy as np
-t = [[1,9,1],[2,9,1],[2,1,1]]
-start = (0,0)
-finish = (0,2)
+t = np.array([[1,9,1],[2,9,1],[2,1,1]])
+start_row = 0
+start_col = 0
+finish_row = 0
+finish_col = 2
 
-def cheapest_path(t,start,finish):
+def cheapest_path(t,start_row,start_col,finish_row,finish_col):
     
     reponse = np.zeros_like(t)
-    reponse[start] = 1
-    x_current = start[0]
-    y_current = start[1]
+    reponse[start_row][start_col] = 1
+    current_col = start_col
+    current_row = start_row
     cout = t
+    cout_rows = cout.shape[0]
+    cout_cols = cout.shape[1]
     
-    while x_current != finish[0] or y_current != finish[1]:
+    while current_row != finish_row or current_col != finish_col:
         
         posible_mov = [-1,1,-1,1]        
         cout_meilleur_voisin = 99999
-        coordonneeX = 0
-        coordonneeY = 0
+        coordonnee_col = 0
+        coordonnee_row = 0
         
         
         for i in range(4):
             
-            if i < 2:
-                x_voisin = x_current + posible_mov[i]
-                y_voisin = y_current
-                print(x_voisin)
             if i >= 2:
-                x_voisin = x_current
-                y_voisin = y_current + posible_mov[i]
-                print(y_voisin)
-            if (x_voisin >= 0 and y_voisin >= 0) and (reponse[(x_voisin, y_voisin)] != 1):
-                print()
-                if cout[x_voisin][y_voisin] < cout_meilleur_voisin:
-                    cout_meilleur_voisin = cout[x_voisin][y_voisin]
-                    coordonneeX = x_voisin
-                    coordonneeY = y_voisin
+                voisin_col = current_col
+                voisin_row = current_row + posible_mov[i]
+                print(voisin_row)
             
-        x_current = coordonneeX
-        y_current = coordonneeY
-        reponse[x_current][y_current] = 1
+            if i < 2:
+                voisin_col = current_col + posible_mov[i]
+                voisin_row = current_row
+                print(voisin_col)
+
+            if (voisin_col >= 0 and voisin_row >= 0 and voisin_col < cout_cols and voisin_row < cout_rows) and (reponse[voisin_row][voisin_col] != 1):
+                print()                
+                if cout[voisin_row][voisin_col] < cout_meilleur_voisin:
+                    cout_meilleur_voisin = cout[voisin_row][voisin_col]
+                    coordonnee_row = voisin_row
+                    coordonnee_col = voisin_col
+                    
+            
+        current_row = coordonnee_row
+        current_col = coordonnee_col        
+        reponse[current_row][current_col] = 1
+    print("reponse : ")
     print(reponse)
-    print(x_current,y_current)
+
     
         
                 
     
 
-cheapest_path(t,start,finish)   
+cheapest_path(t,start_row,start_col,finish_row,finish_col)   
