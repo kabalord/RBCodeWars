@@ -21,7 +21,8 @@ def cheapest_path(t,start_row,start_col,finish_row,finish_col):
     cout = t
     cout_rows = cout.shape[0]
     cout_cols = cout.shape[1]
-    
+    directions = []
+    #print(cout)
     while current_row != finish_row or current_col != finish_col:
         
         posible_mov = [-1,1,-1,1]        
@@ -35,30 +36,38 @@ def cheapest_path(t,start_row,start_col,finish_row,finish_col):
             if i >= 2:
                 voisin_col = current_col
                 voisin_row = current_row + posible_mov[i]
-                print(voisin_row)
+                #print("voisin_row : ",voisin_row)
             
             if i < 2:
                 voisin_col = current_col + posible_mov[i]
                 voisin_row = current_row
-                print(voisin_col)
+                #print("voisin_col : ",voisin_col)
 
             if (voisin_col >= 0 and voisin_row >= 0 and voisin_col < cout_cols and voisin_row < cout_rows) and (reponse[voisin_row][voisin_col] != 1):
-                print()                
+                
                 if cout[voisin_row][voisin_col] < cout_meilleur_voisin:
                     cout_meilleur_voisin = cout[voisin_row][voisin_col]
                     coordonnee_row = voisin_row
-                    coordonnee_col = voisin_col
-                    
-            
+                    coordonnee_col = voisin_col                
+                    #print(coordonnee_row,"and",coordonnee_col)
+                    #print(current_row,"and",current_col)
+        if coordonnee_row == current_row and coordonnee_col > current_col:
+            directions.append("right")
+        elif coordonnee_row == current_row and coordonnee_col < current_col:
+            directions.append("left")
+        elif coordonnee_row < current_row and coordonnee_col == current_col:
+            directions.append("up")
+        elif coordonnee_row > current_row and coordonnee_col == current_col:
+            directions.append("down")
+        else: 
+            break
+                                
+                       
         current_row = coordonnee_row
         current_col = coordonnee_col        
         reponse[current_row][current_col] = 1
-    print("reponse : ")
-    print(reponse)
-
-    
+        #print("reponse : ")
+        #print(reponse)
+    return directions    
         
-                
-    
-
-cheapest_path(t,start_row,start_col,finish_row,finish_col)   
+#cheapest_path(t,start_row,start_col,finish_row,finish_col)   
