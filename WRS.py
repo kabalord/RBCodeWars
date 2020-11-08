@@ -7,12 +7,11 @@ Created on Sun Nov  1 13:32:59 2020
 """
 import numpy as np
 t = np.array([[1,9,1],[2,9,1],[2,1,1]])
-start_row = 0
-start_col = 0
-finish_row = 0
-finish_col = 2
+start_row, start_col, finish_row, finish_col = 0,0,0,2
+start = (start_row,start_col)
+finish = (finish_row,finish_col)
 
-def cheapest_path(t,start_row,start_col,finish_row,finish_col):
+def cheapest_path(t,start,finish):
     
     reponse = np.zeros_like(t)
     reponse[start_row][start_col] = 1
@@ -70,4 +69,4 @@ def cheapest_path(t,start_row,start_col,finish_row,finish_col):
         #print(reponse)
     return directions    
         
-#cheapest_path(t,start_row,start_col,finish_row,finish_col)   
+#cheapest_path(t,start,finish)   
